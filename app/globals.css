@@ -136,26 +136,54 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* drift animation for small random movement */
+/* drift animation for continuous smooth movement */
 @keyframes drift {
   0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0;
-  }
-  15% {
+    transform: translate(0, 0) scale(var(--star-size, 1));
     opacity: var(--star-opacity, 0.4);
   }
-  85% {
+  50% {
     opacity: var(--star-opacity, 0.4);
   }
   100% {
     transform: translate(var(--drift-x, 0), var(--drift-y, 0)) scale(var(--star-size, 1));
-    opacity: 0;
+    opacity: var(--star-opacity, 0.4);
   }
 }
 
 .animate-drift {
-  animation: drift var(--drift-speed, 8s) ease-in-out infinite;
+  animation: drift var(--drift-speed, 8s) linear infinite !important;
+}
+
+/* Modern timebox animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(34, 211, 238, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(34, 211, 238, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shimmer-wave {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer-wave {
+  animation: shimmer-wave 3s linear infinite;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.3), transparent);
+  background-size: 1000px 100%;
 }
 
 @keyframes spin-slow {

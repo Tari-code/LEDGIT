@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-slate-950/80 backdrop-blur-md border-b border-blue-500/20 shadow-lg shadow-blue-500/10' 
+        ? 'md:bg-slate-950/80 md:backdrop-blur-md md:border-b sm:border-none md:border-blue-500/20 md:shadow-lg shadow-blue-500/10' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -53,9 +53,9 @@ export default function Header() {
             </div>
 
             {/* Mobile Logo Text */}
-            <span className="sm:hidden text-lg font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-display">
+            {/* <span className="sm:hidden text-lg font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-display">
               LEDGIT
-            </span>
+            </span> */}
           </div>
 
           {/* Desktop Navigation */}
@@ -80,31 +80,58 @@ export default function Header() {
             <button 
               onClick={() => setShowModal(true)}
               className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 text-sm font-semibold btn-glow">
-              Early Access
+              Register
             </button>
           </div>
+<div className="w-full flex px-4 py-2 justify-between items-center md:hidden rounded-lg bg-[#f2f2f2f2] z-100 h-auto">
+          <span className="sm:hidden text-lg font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-display">
+              LEDGIT
+            </span>
+
+
+<div className="flex w-full justify-end gap-4">
+            {/* Early Access Button with enhanced animations */}
+              <button 
+                onClick={() => {
+                  setShowModal(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-auto px-4 py-2 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 text-sm font-semibold btn-glow relative group overflow-hidden transform hover:scale-105"
+              >
+                {/* Animated background shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                
+                {/* Glow effect on hover */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                
+                <span className="relative flex items-center justify-center gap-2">
+                  Register
+                </span>
+              </button>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 group"
+            className="md:hidden flex flex-col gap-1.5 group items-center justify-center"
           >
             <span className={`w-6 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
             <span className={`w-6 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
             <span className={`w-6 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
           </button>
+          </div>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 space-y-2 animate-fade-in">
+          <nav className="md:hidden border bg-[#f2f2f2f2] rounded-[10px] mt-2 pb-4 space-y-2 animate-fade-in">
             {/* Navigation Links with staggered animation */}
             {navItems.map((item, index) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-300 text-sm font-medium relative group overflow-hidden animate-fade-in"
+                className="block px-4 py-3 text-blue-300 hover:text-white rounded-lg transition-all duration-300 text-sm font-medium relative group overflow-hidden animate-fade-in"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {/* Background gradient on hover */}
@@ -144,31 +171,8 @@ export default function Header() {
               </button>
 
               {/* Early Access Button with enhanced animations */}
-              <button 
-                onClick={() => {
-                  setShowModal(true);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 text-sm font-semibold btn-glow relative group overflow-hidden transform hover:scale-105"
-              >
-                {/* Animated background shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-                
-                {/* Glow effect on hover */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-                
-                <span className="relative flex items-center justify-center gap-2">
-                  <span className="animate-pulse">✨</span>
-                  Early Access
-                  <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </span>
-              </button>
+              {/*  */}
             </div>
-
-            {/* Footer note */}
-            <p className="text-xs text-gray-500 px-4 py-2 text-center animate-fade-in" style={{ animationDelay: '350ms' }}>
-              Join our waitlist for exclusive early access
-            </p>
           </nav>
         )}
       </div>
