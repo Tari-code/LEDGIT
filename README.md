@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LEDGIT Frontend
 
-## Getting Started
+Phase 1 Next.js frontend for the LEDGIT verifiable experience system.
 
-First, run the development server:
+---
+
+## Quick Start
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Set up environment
+cp .env.local.example .env.local
+# Edit .env.local: set NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# 3. Make sure backend (LEDGIT-Server) is running on :5000
+
+# 4. Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs at http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Routes
 
-## Learn More
+| Route | Auth | Description |
+|---|---|---|
+| `/` | Public | Landing page with SVG animations |
+| `/apply` | Auto | Email login → submit experience |
+| `/auth/verify?token=` | None | Magic link callback |
+| `/experiences` | Required | All experiences list |
+| `/status/[id]` | Required | Experience detail + blockchain proof |
+| `/verify/[id]` | None | Public credential verification + QR |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/
+  page.tsx              ← Landing (LandingHero + LandingHowItWorks + ...)
+  apply/page.tsx        ← Auth + experience submission
+  auth/verify/page.tsx  ← Magic link callback
+  experiences/page.tsx  ← Experience list
+  status/[id]/page.tsx  ← Detail + timeline + blockchain proof
+  verify/[id]/page.tsx  ← Public verification + QR code
+  components/
+    LandingHero.tsx
+    LandingHowItWorks.tsx
+    LandingFeatures.tsx
+    LandingTrustSection.tsx
+    LandingCTA.tsx
+    Footer.tsx
 
-## Deploy on Vercel
+lib/api/
+  client.ts       ← Axios + auth interceptor
+  auth.ts         ← Magic link API + token helpers
+  experiences.ts  ← Experience CRUD
+  verification.ts ← Public verification
+  ai.ts           ← OCR endpoint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+hooks/
+  useAuth.ts        ← login / verifyLink / logout
+  useExperiences.ts ← fetchList / fetchOne / create / runOcr
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+types/
+  api.types.ts      ← All TypeScript interfaces
+```
+
+---
+
+## Auth Flow
+
+1. User enters email on `/apply`
+2. Backend sends magic link → `FRONTEND_URL/auth/verify?token=JWT`
+3. `/auth/verify` page calls `POST /auth/verify` → stores `ledgit_token` in localStorage
+4. Axios interceptor attaches `Authorization: Bearer TOKEN` to all requests
+5. 401 responses redirect to `/apply`
+
+---
+
+## Dependencies Added
+
+- `axios` — API client
+- `react-hook-form` + `zod` + `@hookform/resolvers` — form validation
+- `qrcode.react` — QR generation on verify page
+- `sonner` — toast notifications
+- `framer-motion` — (available, use as needed)
+- `lucide-react` — (available, use as needed)

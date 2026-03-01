@@ -1,121 +1,69 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Footer() {
-  const links = {
-    Product: ['Features', 'Pricing', 'Security'],
-    Company: ['About', 'Blog', 'Careers'],
-    Follow: ['Twitter', 'LinkedIn', 'Discord'],
-  };
-
   return (
-    <footer className="w-full bg-gradient-to-b from-slate-950 to-black border-t border-purple-500/20 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background animation elements */}
-      <div className="absolute inset-0 pointer-events-none opacity-10">
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-      </div>
+    <footer className="w-full bg-gradient-to-b from-slate-950 to-black border-t border-slate-800/60 py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-600 rounded-full blur-[120px] opacity-[0.03] animate-blob pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <div className="grid sm:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
-          <div className="animate-fade-in">
+          <div>
             <h3 className="text-2xl font-bold text-white mb-3 font-display">
-              <span className="text-gradient-animated">Ledgit</span>
+              <span className="text-gradient-animated">LEDGIT</span>
             </h3>
-            <p className="text-sm text-gray-400 leading-relaxed font-light">
-              Building the future of innovation, one pixel at a time. Join us on this extraordinary journey.
+            <p className="text-sm text-slate-500 leading-relaxed font-light max-w-xs">
+              Tamper-proof credential anchoring on Hedera Hashgraph. Your experience, provably real.
             </p>
-            {/* Social icons */}
-            <div className="flex gap-4 mt-6">
-              {['f', 'in', 'tw'].map((icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center hover:bg-blue-500/20 hover:border-blue-500/60 transition-all duration-300 transform hover:scale-110"
-                >
-                  <span className="text-xs font-bold text-blue-300">{icon}</span>
-                </a>
-              ))}
+            <div className="flex items-center gap-2 mt-5">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-xs text-slate-500 font-mono">Testnet — Phase 1</span>
             </div>
           </div>
 
-          {/* Quick Links - Product */}
-          <div className="animate-fade-in animation-delay-1000">
-            <h4 className="font-bold text-white mb-6 font-display text-lg">Product</h4>
+          {/* Product */}
+          <div>
+            <h4 className="font-bold text-white mb-5 font-display">Product</h4>
             <ul className="space-y-3">
-              {links.Product.map((link, i) => (
+              {[
+                { label: 'Submit Experience', href: '/apply' },
+                { label: 'My Records', href: '/experiences' },
+                { label: 'How It Works', href: '/#how' },
+              ].map((l, i) => (
                 <li key={i}>
-                  <a href="#" className="text-gray-400 hover:text-purple-400 transition-all duration-300 relative group font-light">
-                    {link}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
-                  </a>
+                  <Link href={l.href} className="text-slate-500 hover:text-purple-400 transition-colors text-sm font-light relative group">
+                    {l.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-px bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Company Links */}
-          <div className="animate-fade-in animation-delay-2000">
-            <h4 className="font-bold text-white mb-6 font-display text-lg">Company</h4>
+          {/* Tech */}
+          <div>
+            <h4 className="font-bold text-white mb-5 font-display">Technology</h4>
             <ul className="space-y-3">
-              {links.Company.map((link, i) => (
-                <li key={i}>
-                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-all duration-300 relative group font-light">
-                    {link}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-slate-500 group-hover:w-full transition-all duration-300"></span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social Links */}
-          <div className="animate-fade-in animation-delay-3000">
-            <h4 className="font-bold text-white mb-6 font-display text-lg">Follow Us</h4>
-            <ul className="space-y-3">
-              {links.Follow.map((link, i) => (
-                <li key={i}>
-                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-all duration-300 relative group font-light flex items-center gap-2">
-                    <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                    {link}
-                  </a>
+              {['Hedera HCS', 'SHA-256 Hashing', 'GPT-4o Vision OCR', 'Supabase Storage'].map((t, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-slate-500 font-light">
+                  <span className="w-1 h-1 bg-slate-600 rounded-full" />
+                  {t}
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-blue-500/10 pt-8 mb-8 relative">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
-        </div>
-
-        {/* Bottom footer */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-gray-400 font-light">
-            &copy; 2026 <span className="text-blue-400 font-semibold">Ledgit</span>. All rights reserved.
+        <div className="border-t border-slate-800/60 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-slate-600 font-mono">
+            © 2026 LEDGIT. Phase 1 — Hedera Testnet.
           </p>
-          <div className="flex gap-8 flex-wrap justify-center">
-            <a href="#" className="text-sm text-gray-400 hover:text-blue-400 transition-all duration-300 font-light relative group">
-              Privacy Policy
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#" className="text-sm text-gray-400 hover:text-blue-400 transition-all duration-300 font-light relative group">
-              Terms of Service
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
-            <a href="#" className="text-sm text-gray-400 hover:text-blue-400 transition-all duration-300 font-light relative group">
-              Cookie Policy
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
+          <div className="flex gap-6">
+            {['Privacy', 'Terms'].map((l, i) => (
+              <a key={i} href="#" className="text-xs text-slate-600 hover:text-slate-400 transition-colors font-light">{l}</a>
+            ))}
           </div>
-        </div>
-
-        {/* Scroll to top button indicator */}
-        <div className="flex justify-center mt-6">
-          <a href="#" className="group relative w-12 h-12 rounded-full bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 flex items-center justify-center hover:border-purple-500/60 hover:bg-purple-500/20 transition-all duration-300 transform hover:scale-110">
-            <span className="text-lg text-purple-300 group-hover:text-purple-100 transition-colors transform group-hover:-translate-y-1 duration-300">↑</span>
-            <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Top</span>
-          </a>
         </div>
       </div>
     </footer>
