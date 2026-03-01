@@ -1,8 +1,13 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import RegistrationModal from './RegistrationModal';
 
 export default function ComingSoonHero() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center overflow-hidden">
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center overflow-hidden pt-20">
       {/* Animated background elements with multiple layers */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -17,9 +22,17 @@ export default function ComingSoonHero() {
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         {/* Animated Badge */}
-        <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full hover:border-purple-500/60 transition-all duration-500 hover:glow-purple animate-fade-in group cursor-pointer">
-          <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse scale-125"></span>
-          <span className="text-sm font-medium text-slate-300 font-accent">Coming Soon</span>
+        <div className="inline-flex items-center gap-2 mb-8 px-5 py-3 bg-blue-500/10 border border-blue-500/30 rounded-full hover:border-blue-500/60 transition-all duration-500 group cursor-pointer overflow-hidden glass-morphism-premium animate-fade-in">
+          {/* Pulsing indicator dot with glow */}
+          <span className="inline-block w-3 h-3 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full animate-pulse shadow-lg shadow-blue-400/50"></span>
+
+          {/* Text with gradient and neon glow on hover */}
+          <span className="relative text-sm font-medium text-slate-300 font-accent">
+            <span className="z-10">Coming Soon</span>
+            <span className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 opacity-0  transition-opacity duration-300"></span>
+          </span>
+
+        
         </div>
 
         {/* Main Heading with premium font and animation */}
@@ -34,7 +47,9 @@ export default function ComingSoonHero() {
 
         {/* CTA Buttons with enhanced animations */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in animation-delay-3000">
-          <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 btn-glow font-accent backdrop-blur-sm relative group overflow-hidden">
+          <button 
+            onClick={() => setShowModal(true)}
+            className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 btn-glow font-accent backdrop-blur-sm relative group overflow-hidden">
             <span className="relative z-10 flex items-center justify-center gap-2">
               <span className="animate-bounce-soft">✨</span>
               Notify Me
@@ -59,6 +74,9 @@ export default function ComingSoonHero() {
           backgroundSize: '50px 50px'
         }}></div>
       </div>
+
+      {/* Registration Modal */}
+      <RegistrationModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }

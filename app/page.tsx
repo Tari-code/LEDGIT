@@ -1,3 +1,4 @@
+import Header from './components/Header';
 import ComingSoonHero from './components/ComingSoonHero';
 // import ConstructionImage from './components/ConstructionImage';
 import FeatureCards from './components/FeatureCards';
@@ -8,6 +9,7 @@ import Footer from './components/Footer';
 export default function Home() {
   return (
     <div className="w-full min-h-screen bg-slate-950">
+      <Header />
       <ComingSoonHero />
       {/* <ConstructionImage /> */}
       <FeatureCards />
